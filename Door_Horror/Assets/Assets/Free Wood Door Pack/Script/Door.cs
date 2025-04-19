@@ -16,6 +16,7 @@ namespace DoorScript
 	public class Door : MonoBehaviour
 	{
 		public bool open;
+		public bool isLocked = true;
 		public float smooth = 1.0f;
 		float DoorOpenAngle = -90.0f;
 		float DoorCloseAngle = 0.0f;
@@ -49,5 +50,29 @@ namespace DoorScript
 				Game_Manager.instance.OnDoorEntered(doorColor);
 			}
 		}
+		
+		public void TryOpenWithKey(Inventory playerInventory)
+		{
+			if (isLocked)
+			{
+				if (playerInventory.UseItem(ItemType.Key))
+				{
+					Debug.Log("Door unlocked with a key!");
+					isLocked = false;
+					OpenDoor();
+				}
+				else
+				{
+					Debug.Log("This door is locked. You need a key.");
+				}
+			}
+			else
+			{
+				OpenDoor();
+			}
+		}
 	}
+	
+	
+	
 }

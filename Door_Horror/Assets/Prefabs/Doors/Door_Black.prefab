@@ -587,6 +587,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   open: 0
+  isLocked: 0
   smooth: 1
   doorColor: 2
   asource: {fileID: 3737257743203370770}

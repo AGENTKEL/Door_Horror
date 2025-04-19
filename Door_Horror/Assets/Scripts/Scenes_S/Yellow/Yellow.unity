@@ -548,16 +548,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Y_Mirror_Level
       objectReference: {fileID: 0}
-    - target: {fileID: 2687118594872083547, guid: d7d522e4215059d429275a3b4b50bb57,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4513606253000618619, guid: d7d522e4215059d429275a3b4b50bb57,
-        type: 3}
-      propertyPath: doors.Array.data[0].doorColor
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8667817803817510433, guid: d7d522e4215059d429275a3b4b50bb57,
         type: 3}
       propertyPath: m_LocalPosition.x
