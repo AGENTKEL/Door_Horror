@@ -18,39 +18,26 @@ namespace DoorScript
 		public bool open;
 		public bool isLocked = true;
 		public float smooth = 1.0f;
-		float DoorOpenAngle = -90.0f;
-		float DoorCloseAngle = 0.0f;
+		private float DoorOpenAngle = -90.0f;
+		private float DoorCloseAngle = 0.0f;
 
 		public DoorColor doorColor;
 
-		public AudioSource asource;
+		private AudioSource asource;
 		public AudioClip openDoor, closeDoor;
 
-		void Start()
+		private void Start()
 		{
 			asource = GetComponent<AudioSource>();
 		}
 
-		void Update()
+		private void Update()
 		{
-			var targetAngle = open ? DoorOpenAngle : DoorCloseAngle;
-			var targetRotation = Quaternion.Euler(0, targetAngle, 0);
+			float targetAngle = open ? DoorOpenAngle : DoorCloseAngle;
+			Quaternion targetRotation = Quaternion.Euler(0, targetAngle, 0);
 			transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, Time.deltaTime * 5 * smooth);
 		}
 
-		public void OpenDoor()
-		{
-			open = !open;
-			asource.clip = open ? openDoor : closeDoor;
-			asource.Play();
-
-			if (open)
-			{
-
-				Game_Manager.instance.OnDoorEntered(doorColor);
-			}
-		}
-		
 		public void TryOpenWithKey(Inventory playerInventory)
 		{
 			if (isLocked)
@@ -59,7 +46,7 @@ namespace DoorScript
 				{
 					Debug.Log("Door unlocked with a key!");
 					isLocked = false;
-					OpenDoor();
+					ToggleDoor();
 				}
 				else
 				{
@@ -68,11 +55,16 @@ namespace DoorScript
 			}
 			else
 			{
-				OpenDoor();
+				ToggleDoor();
 			}
 		}
+
+		public void ToggleDoor()
+		{
+			open = !open;
+			asource.clip = open ? openDoor : closeDoor;
+			asource.Play();
+		}
+		
 	}
-	
-	
-	
 }

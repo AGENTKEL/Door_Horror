@@ -174,6 +174,7 @@ MonoBehaviour:
   DistanceOpen: 3
   text: {fileID: 8581935032152004490}
   playerInventory: {fileID: 7671929173394227782}
+  noteTarget: {fileID: 4635128503367391341}
 --- !u!114 &7671929173394227782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,7 +335,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.52, z: -0.028}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4635128503367391341}
   m_Father: {fileID: 6661689462791468696}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &5604296856919016176
@@ -1212,3 +1214,34 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &9060360268349607014
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4635128503367391341}
+  m_Layer: 0
+  m_Name: Note_Pos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4635128503367391341
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9060360268349607014}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0.7071068, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6932811054436258371}
+  m_LocalEulerAnglesHint: {x: 90, y: -180, z: 0}

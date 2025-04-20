@@ -22,6 +22,15 @@ MonoBehaviour:
     m_Localized: Nuevo Juego
     m_Metadata:
       m_Items: []
+  - m_Id: 390501448380416
+    m_Localized: "Hasta el espejo te rechaza. Nunca ser\xEDas digno de ella."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 566488928710656
+    m_Localized: "Solo la oscuridad abrir\xE1 el camino. Recuerda, la luz no se rendir\xE1
+      sin luchar."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

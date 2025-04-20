@@ -19,6 +19,14 @@ MonoBehaviour:
     m_Key: newGame
     m_Metadata:
       m_Items: []
+  - m_Id: 390501448380416
+    m_Key: noteMirror
+    m_Metadata:
+      m_Items: []
+  - m_Id: 566488928710656
+    m_Key: noteCandle
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

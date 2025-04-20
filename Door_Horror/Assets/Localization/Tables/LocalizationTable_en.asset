@@ -22,6 +22,15 @@ MonoBehaviour:
     m_Localized: New Game
     m_Metadata:
       m_Items: []
+  - m_Id: 390501448380416
+    m_Localized: Even the mirror rejects you. You would never be worthy of her.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 566488928710656
+    m_Localized: Only darkness will open the way forward. Remember, the light won't
+      surrender without a fight.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -6,17 +6,28 @@ namespace CameraDoorScript
 {
 	public class CameraOpenDoor : MonoBehaviour
 	{
-		public float DistanceOpen = 3;
+		public float DistanceOpen = 3f;
 		public GameObject text;
 		public Inventory playerInventory;
+		public Transform noteTarget;
+
+		private Camera mainCam;
+
+		private void Start()
+		{
+			mainCam = Camera.main;
+		}
 
 		void Update()
 		{
+			Ray ray = new Ray(mainCam.transform.position, mainCam.transform.forward);
 			RaycastHit hit;
-			if (Physics.Raycast(transform.position, transform.forward, out hit, DistanceOpen))
+
+			if (Physics.Raycast(ray, out hit, DistanceOpen))
 			{
 				var door = hit.transform.GetComponent<DoorScript.Door>();
 				var interactable = hit.transform.GetComponent<Interactable>();
+				var candle = hit.transform.GetComponent<Candle>();
 
 				if (door != null)
 				{
@@ -31,7 +42,22 @@ namespace CameraDoorScript
 					text.SetActive(true);
 					if (Input.GetKeyDown(KeyCode.E))
 					{
-						playerInventory.AddItem(interactable);
+						if (interactable.itemType == ItemType.Note)
+						{
+							interactable.MoveTo(noteTarget);
+						}
+						else
+						{
+							playerInventory.AddItem(interactable);
+						}
+					}
+				}
+				else if (candle != null)
+				{
+					text.SetActive(true);
+					if (Input.GetKeyDown(KeyCode.E))
+					{
+						candle.Interact();
 					}
 				}
 				else

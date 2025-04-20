@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scripts/Scenes_S/Special/Intro/Intro.unity
     guid: f381cb88bab19d744b43532dd5fe8eb4
   - enabled: 1
-    path: Assets/Scripts/Scenes_S/Special/Begin.unity
+    path: Assets/Scripts/Scenes_S/Special/Begin/Begin.unity
     guid: d46e41a59d543bc4fabd353f6e61f736
   - enabled: 1
     path: Assets/Scripts/Scenes_S/Special/End.unity
