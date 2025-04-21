@@ -31,6 +31,14 @@ MonoBehaviour:
       sin luchar."
     m_Metadata:
       m_Items: []
+  - m_Id: 822206558728192
+    m_Localized: "El paciente sufri\xF3 un accidente y lleva varios meses en coma
+      profundo. Cree que solo est\xE1 jugando a un juego de ni\xF1os. Quiz\xE1s sea
+      lo mejor.\r\nSi el paciente sale de esta habitaci\xF3n y sigue hundi\xE9ndose
+      en s\xED mismo, su mente nunca volver\xE1 a su estado anterior y tendremos
+      que desconectarlo de todo soporte vital."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

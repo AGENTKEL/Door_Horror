@@ -31,6 +31,14 @@ MonoBehaviour:
       surrender without a fight.
     m_Metadata:
       m_Items: []
+  - m_Id: 822206558728192
+    m_Localized: "The patient was in an accident and has been in a deep coma for
+      several months. He believes he\u2019s just playing a children\u2019s game.
+      Maybe it\u2019s for the best.\r\nIf the patient leaves this room and keeps
+      sinking deeper into himself, his mind will never return to its former state,
+      and we\u2019ll have to disconnect him from all life support.\r\n"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

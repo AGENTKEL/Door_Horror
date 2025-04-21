@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ItemType { Key, Note, Toy, Gift }
+public enum ItemType { Key, Note, NoteCar, Toy, Gift }
 
 public class Interactable : MonoBehaviour
 {
@@ -62,6 +62,12 @@ public class Interactable : MonoBehaviour
         if (itemType == ItemType.Note)
         {
             MoveTo(inventory.playerCameraInteract.noteTarget); // Assuming inventory or context provides this
+        }
+        
+        else if (itemType == ItemType.NoteCar)
+        {
+            MoveTo(inventory.playerCameraInteract.noteTarget); // Assuming inventory or context provides this
+            FindObjectOfType<CarManager>().UnlockDoor();
         }
         else
         {
