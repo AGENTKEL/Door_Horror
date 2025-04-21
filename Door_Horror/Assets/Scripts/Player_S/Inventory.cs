@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using CameraDoorScript;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +16,7 @@ public class Inventory : MonoBehaviour
     [Header("Inventory Slots")]
     public Image[] slotImages = new Image[3]; // UI slots
     private InventoryItemData[] items = new InventoryItemData[3];
+    public CameraOpenDoor playerCameraInteract;
 
     public bool AddItem(Interactable item)
     {

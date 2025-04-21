@@ -42,14 +42,7 @@ namespace CameraDoorScript
 					text.SetActive(true);
 					if (Input.GetKeyDown(KeyCode.E))
 					{
-						if (interactable.itemType == ItemType.Note)
-						{
-							interactable.MoveTo(noteTarget);
-						}
-						else
-						{
-							playerInventory.AddItem(interactable);
-						}
+						interactable.Interact(playerInventory);
 					}
 				}
 				else if (candle != null)

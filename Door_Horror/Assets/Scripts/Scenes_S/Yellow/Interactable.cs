@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ItemType { Key, Note, Tool }
+public enum ItemType { Key, Note, Toy, Gift }
 
 public class Interactable : MonoBehaviour
 {
@@ -46,6 +46,26 @@ public class Interactable : MonoBehaviour
         else
         {
             Destroy(gameObject); // Second interaction destroys it
+        }
+    }
+    
+    public void Interact(Inventory inventory)
+    {
+        if (itemType == ItemType.Toy)
+        {
+            Toy toy = GetComponent<Toy>();
+            toy.Interact(inventory);
+            return;
+        }
+
+        // Default interaction logic (e.g., pickup or note reading)
+        if (itemType == ItemType.Note)
+        {
+            MoveTo(inventory.playerCameraInteract.noteTarget); // Assuming inventory or context provides this
+        }
+        else
+        {
+            inventory.AddItem(this);
         }
     }
 }
