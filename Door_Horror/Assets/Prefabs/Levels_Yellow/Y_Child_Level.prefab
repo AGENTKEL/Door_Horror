@@ -5465,6 +5465,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 4011100280781479939, guid: e6e5f323e506df64781e316f2e352d7f,
+        type: 3}
+      propertyPath: itemType
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8050827944606758601, guid: e6e5f323e506df64781e316f2e352d7f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5583,6 +5588,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5192289312907167247, guid: a8b428e077f0d0c46a8423df70ea9553,
+        type: 3}
+      propertyPath: itemType
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7173388221731355102, guid: a8b428e077f0d0c46a8423df70ea9553,
         type: 3}
@@ -6225,6 +6235,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6189164611048651323}
     m_Modifications:
+    - target: {fileID: 759374499316564278, guid: 1d216c84840cf274d93647bf0a1e828e,
+        type: 3}
+      propertyPath: itemType
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1325830326584844935, guid: 1d216c84840cf274d93647bf0a1e828e,
         type: 3}
       propertyPath: toyManager
@@ -6318,6 +6333,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 2885722431697385188, guid: 739a44ea1d92edb409d257ee67f661dc,
+        type: 3}
+      propertyPath: itemType
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8753823442725308445, guid: 739a44ea1d92edb409d257ee67f661dc,
         type: 3}
@@ -6605,6 +6625,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2080934788423888188, guid: 0989f2fa4bb2afc4bbecf5e621aa6df9,
+        type: 3}
+      propertyPath: itemType
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7103,6 +7128,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6961414879707519662, guid: 0766cae532777084a85bdbf26fff8669,
+        type: 3}
+      propertyPath: itemType
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

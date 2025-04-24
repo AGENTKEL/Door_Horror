@@ -10,43 +10,70 @@ public class ClownManager : MonoBehaviour
     public float minLookTime = 3f;
     public float maxLookTime = 5f;
 
+    public float rotationSpeed = 90f; // degrees per second
     public AudioSource musicSource;
 
     private bool isLookingAtPlayers = false;
-
     private Quaternion originalRotation;
-    private Quaternion lookingRotation;
+    private Quaternion targetRotation;
+    private bool rotating = false;
 
     private void Start()
     {
         originalRotation = transform.rotation;
-        lookingRotation = Quaternion.Euler(transform.eulerAngles + new Vector3(0, 180, 0)); // Rotate 180° on Y
         StartCoroutine(ControlRoutine());
+    }
+
+    private void Update()
+    {
+        if (rotating)
+        {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+            if (Quaternion.Angle(transform.rotation, targetRotation) < 0.1f)
+            {
+                transform.rotation = targetRotation;
+                rotating = false;
+
+                // Toggle music based on the new rotation state
+                if (isLookingAtPlayers)
+                {
+                    musicSource.Stop();
+                }
+                else
+                {
+                    musicSource.Play();
+                }
+            }
+        }
     }
 
     private IEnumerator ControlRoutine()
     {
         while (true)
         {
-            // Not looking at player
+            // Not looking at players
             isLookingAtPlayers = false;
-            transform.rotation = originalRotation;
-
-            if (!musicSource.isPlaying)
-                musicSource.Play();
+            RotateTo(originalRotation);
+            yield return new WaitUntil(() => !rotating);
 
             float waitTime = Random.Range(minWaitTime, maxWaitTime);
             yield return new WaitForSeconds(waitTime);
 
-            // Turn to look at players
+            // Looking at players
             isLookingAtPlayers = true;
-            transform.rotation = lookingRotation;
-
-            if (musicSource.isPlaying)
-                musicSource.Stop();
+            Quaternion lookRotation = Quaternion.Euler(transform.eulerAngles + new Vector3(0, 180, 0));
+            RotateTo(lookRotation);
+            yield return new WaitUntil(() => !rotating);
 
             float lookTime = Random.Range(minLookTime, maxLookTime);
             yield return new WaitForSeconds(lookTime);
         }
+    }
+
+    private void RotateTo(Quaternion target)
+    {
+        targetRotation = target;
+        rotating = true;
     }
 }
