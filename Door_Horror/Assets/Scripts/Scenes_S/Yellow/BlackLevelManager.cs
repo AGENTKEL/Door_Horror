@@ -24,5 +24,8 @@ public class BlackLevelManager : MonoBehaviour
 
         int indexToActivate = Mathf.Clamp(blackRoomCount, 0, blackRoomPrefabs.Count - 1);
         blackRoomPrefabs[indexToActivate].SetActive(true);
+        Game_Manager.instance.AdjustGameObjectsForSoundSettings();
+        Game_Manager.instance.AdjustGameObjectsForLocalization();
+        Game_Manager.instance.AdjustGameObjectsForSubtitlesSettings();
     }
 }

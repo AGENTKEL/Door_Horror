@@ -24,6 +24,9 @@ public class CarManager : MonoBehaviour
     public void UnlockDoor()
     {
         timeline.SetActive(true);
+        Game_Manager.instance.AdjustGameObjectsForSoundSettings();
+        Game_Manager.instance.AdjustGameObjectsForLocalization();
+        Game_Manager.instance.AdjustGameObjectsForSubtitlesSettings();
         _door.isLocked = false;
     }
 }

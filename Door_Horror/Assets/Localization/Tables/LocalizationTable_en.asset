@@ -87,6 +87,20 @@ MonoBehaviour:
     m_Localized: Skip for ad
     m_Metadata:
       m_Items: []
+  - m_Id: 3076336694161408
+    m_Localized: There hasn't been a single real person left at the very top for
+      a long time now.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3076697270087680
+    m_Localized: Everyone will meet them at least once. From 3 to 4 am. Ceiling,
+      window or mirror
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3081477681934336
+    m_Localized: "\rHow did you manage to get here alone?"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

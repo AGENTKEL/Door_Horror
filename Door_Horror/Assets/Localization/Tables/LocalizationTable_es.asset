@@ -87,6 +87,20 @@ MonoBehaviour:
     m_Localized: "\rSaltar para publicidad"
     m_Metadata:
       m_Items: []
+  - m_Id: 3076336694161408
+    m_Localized: "Desde hace mucho tiempo no queda ni una sola persona real en lo
+      m\xE1s alto."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3076697270087680
+    m_Localized: Todos nos encontraremos con ellos al menos una vez. De 3 a 4 am.
+      Techo, ventana o espejo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3081477681934336
+    m_Localized: "\xBFC\xF3mo lograste llegar hasta aqu\xED sola?"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

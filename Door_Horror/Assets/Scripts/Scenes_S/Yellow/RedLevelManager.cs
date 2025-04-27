@@ -36,5 +36,8 @@ public class RedLevelManager : MonoBehaviour
 
         // Track as used
         Game_Manager.instance.redRoomsUsed.Add(randomIndex);
+        Game_Manager.instance.AdjustGameObjectsForSoundSettings();
+        Game_Manager.instance.AdjustGameObjectsForLocalization();
+        Game_Manager.instance.AdjustGameObjectsForSubtitlesSettings();
     }
 }

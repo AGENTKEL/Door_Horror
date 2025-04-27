@@ -79,6 +79,18 @@ MonoBehaviour:
     m_Key: skipForAd
     m_Metadata:
       m_Items: []
+  - m_Id: 3076336694161408
+    m_Key: noteBlack1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3076697270087680
+    m_Key: noteBlack2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3081477681934336
+    m_Key: noteBlack3
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

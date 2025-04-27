@@ -9,10 +9,13 @@ public class MainMenu : MonoBehaviour
 {
     [SerializeField] private GameObject menuObject;
     [SerializeField] private GameObject langObject;
-    
+
     [SerializeField] private Toggle musicToggle;
     [SerializeField] private Toggle soundToggle;
     [SerializeField] private Toggle subtitlesToggle;
+
+    [SerializeField] private GameObject continueButtonActive;
+    [SerializeField] private GameObject continueButtonInactive;
 
     private void Awake()
     {
@@ -21,6 +24,18 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
+        if (Game_Manager.instance.langChoosen)
+        {
+            menuObject.SetActive(true);
+            langObject.SetActive(false);
+        }
+
+        else
+        {
+            menuObject.SetActive(false);
+            langObject.SetActive(true);
+        }
+        
         // Temporarily remove listeners to avoid triggering toggle methods
         musicToggle.onValueChanged.RemoveListener(OnMusicToggleChanged);
         soundToggle.onValueChanged.RemoveListener(OnSoundToggleChanged);
@@ -35,8 +50,68 @@ public class MainMenu : MonoBehaviour
         musicToggle.onValueChanged.AddListener(OnMusicToggleChanged);
         soundToggle.onValueChanged.AddListener(OnSoundToggleChanged);
         subtitlesToggle.onValueChanged.AddListener(OnSubtitlesToggleChanged);
+
+        // Update the continue button visibility based on passed rooms
+        UpdateContinueButtonVisibility();
     }
-    
+
+    // Called when the "New Game" button is pressed
+    public void NewGame()
+    {
+        // Reset room progress
+        Game_Manager.instance.ResetAllRoomTracking();
+
+        // Optionally clear PlayerPrefs if you want to start fresh
+        PlayerPrefs.DeleteAll();
+
+        // Load the intro scene or any starting scene
+        SceneManager.LoadScene("Intro");
+    }
+
+    // Called when the language is chosen
+    public void ChoseLang()
+    {
+        menuObject.SetActive(true);
+        langObject.SetActive(false);
+        Game_Manager.instance.langChoosen = true;
+    }
+
+    // Called when the "Continue" button is pressed
+    public void ContinueGame()
+    {
+        // Get the last room the player was in
+        DoorScript.DoorColor lastRoom = Game_Manager.instance.GetNextExpectedRoomColor();
+
+        // Load the corresponding room scene
+        switch (lastRoom)
+        {
+            case DoorScript.DoorColor.Yellow:
+                SceneManager.LoadScene(Game_Manager.instance.yellowRoomScene);
+                break;
+            case DoorScript.DoorColor.Red:
+                SceneManager.LoadScene(Game_Manager.instance.redRoomScene);
+                break;
+            case DoorScript.DoorColor.Black:
+                SceneManager.LoadScene(Game_Manager.instance.blackRoomScene);
+                break;
+        }
+    }
+
+    // Updates the visibility of the continue button
+    private void UpdateContinueButtonVisibility()
+    {
+        if (Game_Manager.instance.roomsPassed > 0)
+        {
+            continueButtonActive.SetActive(true);
+            continueButtonInactive.SetActive(false);
+        }
+        else
+        {
+            continueButtonActive.SetActive(false);
+            continueButtonInactive.SetActive(true);
+        }
+    }
+
     private void OnMusicToggleChanged(bool value)
     {
         Game_Manager.instance.SetMusic(value);
@@ -51,34 +126,25 @@ public class MainMenu : MonoBehaviour
     {
         Game_Manager.instance.SetSubtitles(value);
     }
-    
-    
-    public void NewGame()
-    {
-        SceneManager.LoadScene("Intro");
-    }
 
-    public void ChoseLang()
-    {
-        menuObject.SetActive(true);
-        langObject.SetActive(false);
-    }
-    
     public void ToggleMusic()
     {
         bool newValue = !Game_Manager.instance.isMusicOn;
         Game_Manager.instance.SetMusic(newValue);
+        Game_Manager.instance.AdjustGameObjectsForSoundSettings();
     }
 
     public void ToggleSound()
     {
         bool newValue = !Game_Manager.instance.isSoundOn;
         Game_Manager.instance.SetSound(newValue);
+        Game_Manager.instance.AdjustGameObjectsForSoundSettings();
     }
 
     public void ToggleSubtitles()
     {
         bool newValue = !Game_Manager.instance.areSubtitlesOn;
         Game_Manager.instance.SetSubtitles(newValue);
+        Game_Manager.instance.AdjustGameObjectsForSubtitlesSettings();
     }
 }

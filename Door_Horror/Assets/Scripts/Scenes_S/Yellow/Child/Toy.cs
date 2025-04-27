@@ -5,8 +5,8 @@ using UnityEngine;
 public class Toy : MonoBehaviour
 {
     [Header("Toy Audio")]
-    public AudioSource audioSource1; // No gift
-    public AudioSource audioSource2; // With gift
+    public GameObject timelineNoGift;
+    public GameObject timelineGift;
 
     [Header("Key To Spawn")]
     public GameObject keyPrefab; // Only on the last toy
@@ -23,9 +23,9 @@ public class Toy : MonoBehaviour
         if (inventory.HasItem(ItemType.Gift)) // assuming "Gift" is a Tool
         {
             inventory.UseItem(ItemType.Gift);
-            audioSource2?.Play();
+            timelineGift.SetActive(true);
             isGifted = true;
-
+            Game_Manager.instance.AdjustGameObjectsForLocalization();
             toyManager?.OnToyGifted(this);
 
             if (isLastToy && keyPrefab != null)
@@ -35,7 +35,8 @@ public class Toy : MonoBehaviour
         }
         else
         {
-            audioSource1?.Play();
+            timelineNoGift.SetActive(true);
+            Game_Manager.instance.AdjustGameObjectsForLocalization();
         }
     }
 }

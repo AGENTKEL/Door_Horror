@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Rus
+  - Eng
+  - Esp
+  - Audio
+  - Music
+  - Sub
   layers:
   - Default
   - TransparentFX

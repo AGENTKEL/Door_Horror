@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using CharacterScript;
@@ -13,6 +14,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private GameObject pauseScreen;
     [SerializeField] private Image blackImage;
     private bool isPaused;
+    
 
     public void PlayerDeath()
     {
@@ -37,6 +39,12 @@ public class PlayerUI : MonoBehaviour
     public void SkipForAd()
     {
         Time.timeScale = 1;
+        if (SceneManager.GetActiveScene().name == "Black")
+        {
+            Game_Manager.instance.PassBlackRoom();
+            Game_Manager.instance.OnDoorEntered(FindObjectOfType<Door>().doorColor);
+            return;
+        }
         Game_Manager.instance.OnDoorEntered(FindObjectOfType<Door>().doorColor);
     }
     

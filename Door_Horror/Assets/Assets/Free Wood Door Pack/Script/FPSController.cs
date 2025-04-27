@@ -6,7 +6,6 @@ using UnityEngine;
 namespace CharacterScript
 {
     [RequireComponent(typeof(CharacterController))]
-
     public class FPSController : MonoBehaviour
     {
         public float walkingSpeed = 7.5f;
@@ -29,26 +28,26 @@ namespace CharacterScript
         
         public bool useMouseLook = true;
 
+        private bool jumpRequest = false; // <- new: flag for jump button
+
         void Start()
         {
             characterController = GetComponent<CharacterController>();
-            
-#if UNITY_ANDROID || UNITY_IOS
-    useMouseLook = false;
-#endif
 
-            // Lock cursor
+#if UNITY_ANDROID || UNITY_IOS
+            useMouseLook = false;
+#endif
             //Cursor.lockState = CursorLockMode.Locked;
             //Cursor.visible = false;
         }
 
         void Update()
         {
-            if (isDead) {return;}
-            // We are grounded, so recalculate move direction based on axes
+            if (isDead) { return; }
+
             Vector3 forward = transform.TransformDirection(Vector3.forward);
             Vector3 right = transform.TransformDirection(Vector3.right);
-            // Press Left Shift to run
+
             bool isRunning = Input.GetKey(KeyCode.LeftShift);
             float inputVertical = joystick != null && (joystick.Vertical != 0) ? joystick.Vertical : Input.GetAxis("Vertical");
             float inputHorizontal = joystick != null && (joystick.Horizontal != 0) ? joystick.Horizontal : Input.GetAxis("Horizontal");
@@ -58,33 +57,40 @@ namespace CharacterScript
             float movementDirectionY = moveDirection.y;
             moveDirection = (forward * curSpeedX) + (right * curSpeedY);
 
-            if (Input.GetButton("Jump") && canMove && characterController.isGrounded)
+            // Jump logic
+            if ((Input.GetButton("Jump") || jumpRequest) && canMove && characterController.isGrounded)
             {
                 moveDirection.y = jumpSpeed;
+                jumpRequest = false; // reset after jump
             }
             else
             {
                 moveDirection.y = movementDirectionY;
             }
 
-            // Apply gravity. Gravity is multiplied by deltaTime twice (once here, and once below
-            // when the moveDirection is multiplied by deltaTime). This is because gravity should be applied
-            // as an acceleration (ms^-2)
             if (!characterController.isGrounded)
             {
                 moveDirection.y -= gravity * Time.deltaTime;
             }
 
-            // Move the controller
             characterController.Move(moveDirection * Time.deltaTime);
 
-            // Player and Camera rotation
+            // Mouse look
             if (canMove && useMouseLook)
             {
                 rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
                 rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
                 playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
                 transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
+            }
+        }
+
+        // --- NEW: public method to call from UI Button ---
+        public void JumpButton()
+        {
+            if (characterController.isGrounded)
+            {
+                jumpRequest = true;
             }
         }
     }
