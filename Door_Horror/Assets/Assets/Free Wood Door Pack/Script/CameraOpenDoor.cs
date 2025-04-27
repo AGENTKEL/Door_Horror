@@ -14,6 +14,10 @@ namespace CameraDoorScript
 		private ScreenManager currentlyLookedScreen;
 
 		private Camera mainCam;
+		
+		private DoorScript.Door currentDoor;
+		private Interactable currentInteractable;
+		private Candle currentCandle;
 
 		private void Start()
 		{
@@ -24,9 +28,8 @@ namespace CameraDoorScript
 		{
 			Ray ray = new Ray(mainCam.transform.position, mainCam.transform.forward);
 			RaycastHit hit;
-			
+
 			bool hitScreen = false;
-			
 
 			if (Physics.Raycast(ray, out hit, DistanceOpen))
 			{
@@ -35,15 +38,19 @@ namespace CameraDoorScript
 				var candle = hit.transform.GetComponent<Candle>();
 				var screen = hit.transform.GetComponent<ScreenManager>();
 
+				// Reset all current targets every frame
+				currentDoor = null;
+				currentInteractable = null;
+				currentCandle = null;
+
 				if (screen != null)
 				{
 					hitScreen = true;
 
-					// Only set looking if it's a new screen or we weren't already looking
 					if (currentlyLookedScreen != screen)
 					{
 						if (currentlyLookedScreen != null)
-							currentlyLookedScreen.SetLooking(false); // Stop looking at the previous one
+							currentlyLookedScreen.SetLooking(false);
 
 						screen.SetLooking(true);
 						currentlyLookedScreen = screen;
@@ -53,25 +60,31 @@ namespace CameraDoorScript
 				if (door != null)
 				{
 					text.SetActive(true);
+					currentDoor = door;
+
 					if (Input.GetKeyDown(KeyCode.E))
 					{
-						door.TryOpenWithKey(playerInventory);
+						Interact();
 					}
 				}
 				else if (interactable != null)
 				{
 					text.SetActive(true);
+					currentInteractable = interactable;
+
 					if (Input.GetKeyDown(KeyCode.E))
 					{
-						interactable.Interact(playerInventory);
+						Interact();
 					}
 				}
 				else if (candle != null)
 				{
 					text.SetActive(true);
+					currentCandle = candle;
+
 					if (Input.GetKeyDown(KeyCode.E))
 					{
-						candle.Interact();
+						Interact();
 					}
 				}
 				else
@@ -82,6 +95,27 @@ namespace CameraDoorScript
 			else
 			{
 				text.SetActive(false);
+
+				// Reset current targets if looking at nothing
+				currentDoor = null;
+				currentInteractable = null;
+				currentCandle = null;
+			}
+		}
+		
+		public void Interact()
+		{
+			if (currentDoor != null)
+			{
+				currentDoor.TryOpenWithKey(playerInventory);
+			}
+			else if (currentInteractable != null)
+			{
+				currentInteractable.Interact(playerInventory);
+			}
+			else if (currentCandle != null)
+			{
+				currentCandle.Interact();
 			}
 		}
 	}

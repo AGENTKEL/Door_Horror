@@ -26,6 +26,14 @@ public static Game_Manager instance = null;
     public List<int> yellowRoomsUsed = new List<int>();
     public List<int> redRoomsUsed = new List<int>();
     
+    [Header("Settings Toggles")]
+    public bool isMusicOn = true;
+    public bool isSoundOn = true;
+    public bool areSubtitlesOn = true;
+    private const string MusicKey = "Music";
+    private const string SoundKey = "Sound";
+    private const string SubtitlesKey = "Subtitles";
+    
 
     private void Awake()
     {
@@ -33,6 +41,7 @@ public static Game_Manager instance = null;
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            LoadSettings();
         }
         else if (instance != this)
         {
@@ -123,5 +132,51 @@ public static Game_Manager instance = null;
     {
         yellowRoomsUsed.Clear();
         redRoomsUsed.Clear();
+    }
+    
+    public void SetMusic(bool value)
+    {
+        isMusicOn = value;
+        PlayerPrefs.SetInt(MusicKey, value ? 1 : 0);
+        PlayerPrefs.Save();
+
+        // Find and toggle all Music scripts
+        foreach (var music in FindObjectsOfType<Music>(true)) // true includes inactive objects
+        {
+            music.gameObject.SetActive(value);
+        }
+    }
+
+    public void SetSound(bool value)
+    {
+        isSoundOn = value;
+        PlayerPrefs.SetInt(SoundKey, value ? 1 : 0);
+        PlayerPrefs.Save();
+
+        // Find and toggle all Sound scripts
+        foreach (var sound in FindObjectsOfType<Audio>(true))
+        {
+            sound.gameObject.SetActive(value);
+        }
+    }
+
+    public void SetSubtitles(bool value)
+    {
+        areSubtitlesOn = value;
+        PlayerPrefs.SetInt(SubtitlesKey, value ? 1 : 0);
+        PlayerPrefs.Save();
+
+        // Find and toggle all Subtitle scripts
+        foreach (var subtitle in FindObjectsOfType<Subtitle>(true))
+        {
+            subtitle.gameObject.SetActive(value);
+        }
+    }
+
+    public void LoadSettings()
+    {
+        isMusicOn = PlayerPrefs.GetInt(MusicKey, 1) == 1;
+        isSoundOn = PlayerPrefs.GetInt(SoundKey, 1) == 1;
+        areSubtitlesOn = PlayerPrefs.GetInt(SubtitlesKey, 1) == 1;
     }
 }

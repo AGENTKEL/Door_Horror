@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2103313694627303393}
   - component: {fileID: 5289570576009596396}
   - component: {fileID: 4828654678862158558}
+  - component: {fileID: 4954058582457863058}
   m_Layer: 0
   m_Name: DoorD_Right
   m_TagString: Untagged
@@ -222,6 +223,18 @@ MonoBehaviour:
   doorColor: 0
   openDoor: {fileID: 8300000, guid: 44b63b0db16ce624b97e45ebde0a0971, type: 3}
   closeDoor: {fileID: 8300000, guid: bc37ad25465405a428a26ff0facd9a7b, type: 3}
+--- !u!114 &4954058582457863058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6044764441879254413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01941a48a0068be4b93d185209226d99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6294790072563197778
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,6 +249,7 @@ GameObject:
   - component: {fileID: 383444020063327777}
   - component: {fileID: 4804318752935891203}
   - component: {fileID: 547925595215982561}
+  - component: {fileID: 5215582216742956205}
   m_Layer: 0
   m_Name: DoorD_Right (1)
   m_TagString: Untagged
@@ -444,6 +458,18 @@ MonoBehaviour:
   doorColor: 0
   openDoor: {fileID: 8300000, guid: 44b63b0db16ce624b97e45ebde0a0971, type: 3}
   closeDoor: {fileID: 8300000, guid: bc37ad25465405a428a26ff0facd9a7b, type: 3}
+--- !u!114 &5215582216742956205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6294790072563197778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01941a48a0068be4b93d185209226d99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7242430064886637183
 GameObject:
   m_ObjectHideFlags: 0

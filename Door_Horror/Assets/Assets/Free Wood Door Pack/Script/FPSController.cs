@@ -18,30 +18,43 @@ namespace CharacterScript
         public float lookXLimit = 45.0f;
 
         CharacterController characterController;
+        public Joystick joystick;
         Vector3 moveDirection = Vector3.zero;
         float rotationX = 0;
 
         [HideInInspector]
         public bool canMove = true;
 
+        public bool isDead = false;
+        
+        public bool useMouseLook = true;
+
         void Start()
         {
             characterController = GetComponent<CharacterController>();
+            
+#if UNITY_ANDROID || UNITY_IOS
+    useMouseLook = false;
+#endif
 
             // Lock cursor
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            //Cursor.lockState = CursorLockMode.Locked;
+            //Cursor.visible = false;
         }
 
         void Update()
         {
+            if (isDead) {return;}
             // We are grounded, so recalculate move direction based on axes
             Vector3 forward = transform.TransformDirection(Vector3.forward);
             Vector3 right = transform.TransformDirection(Vector3.right);
             // Press Left Shift to run
             bool isRunning = Input.GetKey(KeyCode.LeftShift);
-            float curSpeedX = canMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("Vertical") : 0;
-            float curSpeedY = canMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("Horizontal") : 0;
+            float inputVertical = joystick != null && (joystick.Vertical != 0) ? joystick.Vertical : Input.GetAxis("Vertical");
+            float inputHorizontal = joystick != null && (joystick.Horizontal != 0) ? joystick.Horizontal : Input.GetAxis("Horizontal");
+
+            float curSpeedX = canMove ? (isRunning ? runningSpeed : walkingSpeed) * inputVertical : 0;
+            float curSpeedY = canMove ? (isRunning ? runningSpeed : walkingSpeed) * inputHorizontal : 0;
             float movementDirectionY = moveDirection.y;
             moveDirection = (forward * curSpeedX) + (right * curSpeedY);
 
@@ -66,7 +79,7 @@ namespace CharacterScript
             characterController.Move(moveDirection * Time.deltaTime);
 
             // Player and Camera rotation
-            if (canMove)
+            if (canMove && useMouseLook)
             {
                 rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
                 rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);

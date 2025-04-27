@@ -132,6 +132,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 534507669020695277, guid: cdb0af971e5ddc74babfc30a24abded6,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1260079803819899140, guid: cdb0af971e5ddc74babfc30a24abded6,
         type: 3}
       propertyPath: m_IsActive
@@ -141,6 +146,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Sub_Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3534007155802198100, guid: cdb0af971e5ddc74babfc30a24abded6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5308997894913414734, guid: cdb0af971e5ddc74babfc30a24abded6,
         type: 3}
@@ -241,6 +251,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7816783740411507534, guid: cdb0af971e5ddc74babfc30a24abded6,
+        type: 3}
+      propertyPath: m_VertexColorAlwaysGammaSpace
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7883975909614139109, guid: cdb0af971e5ddc74babfc30a24abded6,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -1090
+      objectReference: {fileID: 0}
+    - target: {fileID: 7883975909614139109, guid: cdb0af971e5ddc74babfc30a24abded6,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -55
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

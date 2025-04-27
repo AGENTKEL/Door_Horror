@@ -8,37 +8,50 @@ public class Manequin : MonoBehaviour
     public float moveSpeed = 2f;
     public float stopDistance = 1.5f;
     public float checkInterval = 0.2f;
+    public float killDistance = 1f;
 
     private Camera playerCamera;
     private bool isVisible;
+    private bool hasKilledPlayer = false;
 
     [SerializeField] private Transform[] visibilityPoints;
+    private PlayerUI playerUI;
 
     void Start()
     {
         playerCamera = Camera.main;
         StartCoroutine(CheckVisibilityRoutine());
+
+        playerUI = FindObjectOfType<PlayerUI>();
     }
 
     void Update()
     {
-        if (!isVisible)
+        if (hasKilledPlayer) return;
+
+        float distance = Vector3.Distance(transform.position, player.position);
+
+        // Kill player if too close
+        if (distance <= killDistance)
         {
-            float distance = Vector3.Distance(transform.position, player.position);
-            if (distance > stopDistance)
-            {
-                Vector3 direction = (player.position - transform.position).normalized;
-                transform.position += direction * moveSpeed * Time.deltaTime;
-                transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z));
-            }
+            hasKilledPlayer = true;
+            playerUI.PlayerDeath();
+            return;
+        }
+
+        if (!isVisible && distance > stopDistance)
+        {
+            Vector3 direction = (player.position - transform.position).normalized;
+            transform.position += direction * moveSpeed * Time.deltaTime;
+            transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z));
         }
     }
 
-    private System.Collections.IEnumerator CheckVisibilityRoutine()
+    private IEnumerator CheckVisibilityRoutine()
     {
         while (true)
         {
-            isVisible = IsAnyPointVisible(); // Updated function name for clarity
+            isVisible = IsAnyPointVisible();
             yield return new WaitForSeconds(checkInterval);
         }
     }
@@ -49,7 +62,6 @@ public class Manequin : MonoBehaviour
         {
             Vector3 viewPos = playerCamera.WorldToViewportPoint(point.position);
 
-            // Check if inside the screen (in front of camera and within viewport)
             if (viewPos.z > 0 && viewPos.x > 0 && viewPos.x < 1 && viewPos.y > 0 && viewPos.y < 1)
             {
                 Vector3 direction = point.position - playerCamera.transform.position;
@@ -59,12 +71,12 @@ public class Manequin : MonoBehaviour
                 {
                     if (hit.transform == transform || hit.transform.IsChildOf(transform))
                     {
-                        return true; // At least one point is visible
+                        return true;
                     }
                 }
             }
         }
 
-        return false; // None of the points are visible
+        return false;
     }
 }

@@ -39,6 +39,54 @@ MonoBehaviour:
       que desconectarlo de todo soporte vital."
     m_Metadata:
       m_Items: []
+  - m_Id: 2252634821849088
+    m_Localized: FRACASO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2252868314558464
+    m_Localized: "\rComenzar\xE1s un nuevo viaje"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2253045528096768
+    m_Localized: Respawn para ver anuncios
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2253261035630592
+    m_Localized: "Salir al men\xFA y reiniciar el juego."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2264924883349504
+    m_Localized: Continuar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2266847900430336
+    m_Localized: "\rHaga clic para comenzar"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2292710654177280
+    m_Localized: "< Espa\xF1ol >"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2297567419133952
+    m_Localized: "Subt\xEDtulos"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2297663690993664
+    m_Localized: Audio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2297788765138944
+    m_Localized: "M\xFAsica"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2424783612243968
+    m_Localized: "\rPausa"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2424995827249152
+    m_Localized: "\rSaltar para publicidad"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
