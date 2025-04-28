@@ -59,7 +59,7 @@ public class MainMenu : MonoBehaviour
     public void NewGame()
     {
         // Reset room progress
-        Game_Manager.instance.ResetAllRoomTracking();
+        Game_Manager.instance.ResetAllRoomProgress();
 
         // Optionally clear PlayerPrefs if you want to start fresh
         PlayerPrefs.DeleteAll();

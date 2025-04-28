@@ -27,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 1393140012545134975}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 0.98, y: 2.124, z: -0.052}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.563, y: 2.124, z: -0.052}
+  m_LocalScale: {x: 1, y: 0.57, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3539937036979017115}
@@ -190,7 +190,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3186815462917801491}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.648303, y: -1.9772354, z: -13.553455}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -385,7 +385,7 @@ GameObject:
   - component: {fileID: 7512395587034287808}
   - component: {fileID: 3737257743203370770}
   - component: {fileID: 4182429415949591275}
-  - component: {fileID: 3336915246334356884}
+  - component: {fileID: 3063543989659909809}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -583,7 +583,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3640992895360053090}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 731917776111cfd4e8e238be7a676f44, type: 3}
   m_Name: 
@@ -594,7 +594,7 @@ MonoBehaviour:
   doorColor: 2
   openDoor: {fileID: 8300000, guid: 44b63b0db16ce624b97e45ebde0a0971, type: 3}
   closeDoor: {fileID: 8300000, guid: bc37ad25465405a428a26ff0facd9a7b, type: 3}
---- !u!114 &3336915246334356884
+--- !u!114 &3063543989659909809
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -603,9 +603,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3640992895360053090}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01941a48a0068be4b93d185209226d99, type: 3}
+  m_Script: {fileID: 11500000, guid: 41dd1bf54a2f04c48ba04b4cd053d18b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doorComponent: {fileID: 4182429415949591275}
 --- !u!1 &5151864804870457222
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,4 +17,10 @@ public class NextScene : MonoBehaviour
     {
         SceneManager.LoadScene("Begin");
     }
+    
+    public void LoadMenuScene()
+    {
+        SceneManager.LoadScene("Menu");
+        Game_Manager.instance.ResetAllRoomProgress();
+    }
 }

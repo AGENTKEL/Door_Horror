@@ -33,8 +33,7 @@ public class DoorSets : MonoBehaviour
         DoorColor expectedColor = isBlackRoom
             ? Game_Manager.instance.GetNextColorAfterBlackRoom() // After black room, follow main sequence
             : Game_Manager.instance.GetNextExpectedRoomColor();
-
-        bool shouldSpawnBlack = !isBlackRoom && Game_Manager.instance.ShouldSpawnBlackDoor();
+        
 
         int doorCount = doors.Count;
         int colorAssigned = 0;
@@ -43,14 +42,8 @@ public class DoorSets : MonoBehaviour
         {
             GameObject prefabToSpawn = null;
             DoorColor colorToAssign = DoorColor.Yellow;
-
-            if (shouldSpawnBlack && colorAssigned == 0)
-            {
-                prefabToSpawn = blackDoorPrefab;
-                colorToAssign = DoorColor.Black;
-                colorAssigned++;
-            }
-            else if (expectedColor == DoorColor.Red && colorAssigned == 0)
+            
+            if (expectedColor == DoorColor.Red && colorAssigned == 0)
             {
                 prefabToSpawn = redDoorPrefab;
                 colorToAssign = DoorColor.Red;

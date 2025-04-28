@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scripts/Scenes_S/Special/Menu.unity
+    path: Assets/Scripts/Scenes_S/Special/Menu/Menu.unity
     guid: 4628eb067c99fa247bcc3e984e200514
   - enabled: 1
     path: Assets/Scripts/Scenes_S/Special/Intro/Intro.unity
@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scripts/Scenes_S/Special/Begin/Begin.unity
     guid: d46e41a59d543bc4fabd353f6e61f736
   - enabled: 1
-    path: Assets/Scripts/Scenes_S/Special/End.unity
+    path: Assets/Scripts/Scenes_S/Special/Endings/End/End.unity
     guid: 8e0a5603c4934c7419ef02deeb52a3c8
   - enabled: 1
     path: Assets/Scripts/Scenes_S/Red/Red.unity
@@ -27,8 +27,17 @@ EditorBuildSettings:
     path: Assets/Scripts/Scenes_S/Black/Black.unity
     guid: 1e942f23a3343d94e978f59d4072b81a
   - enabled: 1
-    path: Assets/Scripts/Scenes_S/Special/Endings/Black_End.unity
+    path: Assets/Scripts/Scenes_S/Special/Endings/Black_End/Black_End.unity
     guid: 3943d2abe4b966c43947cb138a266fde
+  - enabled: 1
+    path: Assets/Scripts/Scenes_S/Special/Endings/End_2/End_2.unity
+    guid: 542d62c32b3f498438c6996ba945f5df
+  - enabled: 1
+    path: Assets/Scripts/Scenes_S/Special/Endings/CycleRoom/Cycle_Room.unity
+    guid: 656d6e19c1f59b340a5fcf5da4056f3a
+  - enabled: 1
+    path: Assets/Scripts/Scenes_S/Special/Endings/Final/Final.unity
+    guid: 6bcb3f5acf018a440baa74d4a169e318
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: c8fcf771185939b4db9063afc7a00ff5,
       type: 2}

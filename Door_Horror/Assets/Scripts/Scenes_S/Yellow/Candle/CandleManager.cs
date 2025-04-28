@@ -6,6 +6,7 @@ using UnityEngine;
 public class CandleManager : MonoBehaviour
 {
     [SerializeField] private Door _door;
+    [SerializeField] private DoorBlack _doorBlack;
     public List<Candle> allCandles = new List<Candle>();
     
     private int extinguishedCount = 0;
@@ -38,6 +39,7 @@ public class CandleManager : MonoBehaviour
             if (_door != null)
             {
                 _door.isLocked = false;
+                _doorBlack.UnlockBlackDoor();
             }
         }
     }

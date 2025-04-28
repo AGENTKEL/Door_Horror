@@ -6,6 +6,7 @@ using UnityEngine;
 public class CarManager : MonoBehaviour
 {
     private Door _door;
+    private DoorBlack _doorBlack;
     [SerializeField] private GameObject timeline;
     
     private void Start()
@@ -18,6 +19,7 @@ public class CarManager : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
 
         _door = FindObjectOfType<Door>();
+        _doorBlack = FindObjectOfType<DoorBlack>();
         _door.isLocked = true;
     }
 
@@ -28,5 +30,6 @@ public class CarManager : MonoBehaviour
         Game_Manager.instance.AdjustGameObjectsForLocalization();
         Game_Manager.instance.AdjustGameObjectsForSubtitlesSettings();
         _door.isLocked = false;
+        _doorBlack.UnlockBlackDoor();
     }
 }

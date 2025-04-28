@@ -14,7 +14,15 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private GameObject pauseScreen;
     [SerializeField] private Image blackImage;
     private bool isPaused;
-    
+
+    private RewardedController rewardedController;
+    private bool waitingForRewardedAdToComplete = false;
+    private System.Action onRewardedCompleteCallback;
+
+    private void Start()
+    {
+        rewardedController = FindObjectOfType<RewardedController>();
+    }
 
     public void PlayerDeath()
     {
@@ -24,7 +32,7 @@ public class PlayerUI : MonoBehaviour
         deadScreen.SetActive(true);
         Time.timeScale = 0;
     }
-    
+
     public void ToMenu()
     {
         Time.timeScale = 1;
@@ -33,22 +41,55 @@ public class PlayerUI : MonoBehaviour
 
     public void PlayAd()
     {
-        RestartScene();
+        RewardedController rewardedController = FindObjectOfType<RewardedController>();
+        if (rewardedController != null)
+        {
+            rewardedController.ShowTheAd(RestartScene);
+        }
     }
-    
+
     public void SkipForAd()
     {
+        RewardedController rewardedController = FindObjectOfType<RewardedController>();
+        if (rewardedController != null)
+        {
+            rewardedController.ShowTheAd(ProceedRoomSkipping);
+        }
+    }
+
+    private void ProceedRoomSkipping()
+    {
         Time.timeScale = 1;
+
         if (SceneManager.GetActiveScene().name == "Black")
         {
             Game_Manager.instance.PassBlackRoom();
+            if (Game_Manager.instance.blackRoomsPassed >= 3)
+            {
+                SceneManager.LoadScene("Black_End");
+                return;
+            }
             Game_Manager.instance.OnDoorEntered(FindObjectOfType<Door>().doorColor);
             return;
         }
+
+        if (Game_Manager.instance.roomsPassed >= 9)
+        {
+            SceneManager.LoadScene("End");
+            return;
+        }
+
         Game_Manager.instance.OnDoorEntered(FindObjectOfType<Door>().doorColor);
     }
-    
-    //Pause
+
+    private void OnRewardedAdComplete()
+    {
+        waitingForRewardedAdToComplete = false;
+        onRewardedCompleteCallback?.Invoke();
+        onRewardedCompleteCallback = null;
+    }
+
+    // Pause
     public void Pause()
     {
         if (isPaused)
@@ -70,13 +111,13 @@ public class PlayerUI : MonoBehaviour
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-    
+
     public void GoToMenu()
     {
         Time.timeScale = 1;
         SceneManager.LoadScene("Menu");
     }
-    
+
     public void TriggerBlackScreenAndDie()
     {
         StartCoroutine(FadeInBlackScreen());
@@ -101,6 +142,32 @@ public class PlayerUI : MonoBehaviour
         }
 
         // After fade is complete, call PlayerDeath
+        PlayerDeath();
+    }
+    
+    public void TriggerBlackScreenAndSwitchScene()
+    {
+        StartCoroutine(FadeInBlackScreenSwitchScene());
+    }
+
+    private IEnumerator FadeInBlackScreenSwitchScene()
+    {
+        float fadeDuration = 3f; // Duration of the fade (in seconds)
+        float elapsedTime = 0f;
+
+        Color color = blackImage.color;
+        color.a = 0f;
+        blackImage.color = color;
+        blackImage.gameObject.SetActive(true);
+
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            color.a = Mathf.Clamp01(elapsedTime / fadeDuration);
+            blackImage.color = color;
+            yield return null;
+        }
+
         PlayerDeath();
     }
 }

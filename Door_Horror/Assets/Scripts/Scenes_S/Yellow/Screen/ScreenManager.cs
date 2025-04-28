@@ -8,12 +8,19 @@ public class ScreenManager : MonoBehaviour
     public Sprite[] screenSprites;
     public Material screenMaterial;
     public float changeInterval = 3f;
+    
+    public AudioClip doorUnlockClip; // 🔥 New: unlock sound clip
+    [SerializeField] private AudioSource audioSource; // 🔥 New: audio source to play sound
 
     private Door _door;
-    private int currentIndex = -1; // Start before the first sprite
+    private DoorBlack _doorBlack;
     private float timer = 0f;
     private bool isLooking = false;
     private bool doorUnlocked = false;
+
+    private int switchesCount = 0;
+    private int switchesNeeded = 5;
+    private List<Sprite> availableSprites = new List<Sprite>();
 
     private void Start()
     {
@@ -21,6 +28,10 @@ public class ScreenManager : MonoBehaviour
 
         // Start with no image
         screenMaterial.mainTexture = null;
+
+        // Initialize available sprites list
+        availableSprites = new List<Sprite>(screenSprites);
+        
     }
 
     private IEnumerator FindDoorCE()
@@ -28,6 +39,7 @@ public class ScreenManager : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
 
         _door = FindObjectOfType<Door>();
+        _doorBlack = FindObjectOfType<DoorBlack>();
         if (_door != null)
         {
             _door.isLocked = true;
@@ -36,51 +48,64 @@ public class ScreenManager : MonoBehaviour
 
     private void Update()
     {
-        if (!isLooking) return;
+        if (!isLooking || doorUnlocked) return;
         
-        if (isLooking)
+        timer += Time.deltaTime;
+
+        if (timer >= changeInterval)
         {
-            timer += Time.deltaTime;
+            timer = 0f;
 
-            if (timer >= changeInterval)
+            if (availableSprites.Count > 0)
             {
-                timer = 0f;
+                // Pick random sprite
+                int randomIndex = Random.Range(0, availableSprites.Count);
+                Sprite sprite = availableSprites[randomIndex];
 
-                if (currentIndex < screenSprites.Length - 1)
+                if (sprite != null && sprite.texture != null)
                 {
-                    currentIndex++;
-                    var sprite = screenSprites[currentIndex];
-                
-                    if (sprite != null && sprite.texture != null)
-                    {
-                        screenMaterial.mainTexture = sprite.texture;
-                    }
+                    screenMaterial.mainTexture = sprite.texture;
+                }
 
-                    if (currentIndex == screenSprites.Length - 1 && !doorUnlocked)
-                    {
-                        doorUnlocked = true;
-                        if (_door != null) _door.isLocked = false;
-                        Debug.Log("Door unlocked after viewing last screen!");
-                    }
-                }
-                else
+                // Remove used sprite so it doesn't repeat
+                availableSprites.RemoveAt(randomIndex);
+
+                switchesCount++;
+
+                if (switchesCount >= switchesNeeded)
                 {
-                    Debug.Log("At final index, not advancing.");
+                    UnlockDoor();
                 }
+            }
+            else
+            {
+                Debug.Log("No more available sprites to switch.");
             }
         }
     }
 
+    private void UnlockDoor()
+    {
+        doorUnlocked = true;
+
+        if (_door != null)
+            _door.isLocked = false;
+        _doorBlack.UnlockBlackDoor();
+
+        if (audioSource != null && doorUnlockClip != null)
+            audioSource.PlayOneShot(doorUnlockClip);
+
+        Debug.Log("Door unlocked after switching 5 images!");
+    }
+
     public void SetLooking(bool value)
     {
-        // Only do something if the value is actually changing
         if (isLooking != value)
         {
             isLooking = value;
 
             if (!isLooking)
             {
-                // Reset only when we stop looking
                 timer = 0f;
             }
         }

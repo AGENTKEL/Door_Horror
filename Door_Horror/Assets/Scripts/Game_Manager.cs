@@ -42,7 +42,7 @@ public class Game_Manager : MonoBehaviour
     private const string YellowRoomsPassedKey = "YellowRoomsPassed";
     private const string BlackRoomsPassedKey = "BlackRoomsPassed";
     private const string BlackDoorUsesKey = "BlackDoorUses";
-
+    private const string RoomsPassedKey = "RoomsPassed";
     private void Awake()
     {
         if (instance == null)
@@ -58,10 +58,7 @@ public class Game_Manager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        ResetAllRoomTracking();
-    }
+
 
     public void OnDoorEntered(DoorScript.DoorColor doorColor)
     {
@@ -82,21 +79,31 @@ public class Game_Manager : MonoBehaviour
 
     private void HandleYellowRoom()
     {
-        yellowRoomsPassed++;
-        roomsPassed++;
+        if (SceneManager.GetActiveScene().name == "End")
+        {
+            SceneManager.LoadScene("Cycle_Room");
+            return;
+        }
         justExitedBlackDoor = false;
         SaveRoomProgress(); // Save progress after passing a room
-
+        
+        FindObjectOfType<InterstitialController>().OnRoomPassed(() => {
+            // Code to load next level here
+            SceneManager.LoadScene(yellowRoomScene);
+        });
         SceneManager.LoadScene(yellowRoomScene);
     }
 
     private void HandleRedRoom()
     {
-        redRoomsPassed++;
-        roomsPassed++;
         justExitedBlackDoor = false;
         SaveRoomProgress(); // Save progress after passing a room
-
+        
+        FindObjectOfType<InterstitialController>().OnRoomPassed(() => {
+            // Code to load next level here
+            SceneManager.LoadScene(redRoomScene);
+        });
+        
         SceneManager.LoadScene(redRoomScene);
     }
 
@@ -105,8 +112,13 @@ public class Game_Manager : MonoBehaviour
         blackDoorUses++;
         justExitedBlackDoor = true;
         SaveRoomProgress(); // Save progress after using a black door
-
+        FindObjectOfType<InterstitialController>().OnRoomPassed(() => {
+            // Code to load next level here
+            SceneManager.LoadScene(blackRoomScene);
+        });
+        
         SceneManager.LoadScene(blackRoomScene);
+        
     }
 
     public void PassBlackRoom()
@@ -128,6 +140,7 @@ public class Game_Manager : MonoBehaviour
     // New method to save the progress in PlayerPrefs
     private void SaveRoomProgress()
     {
+        PlayerPrefs.SetInt(RoomsPassedKey, roomsPassed); // 🔥 NEW
         PlayerPrefs.SetInt(RedRoomsPassedKey, redRoomsPassed);
         PlayerPrefs.SetInt(YellowRoomsPassedKey, yellowRoomsPassed);
         PlayerPrefs.SetInt(BlackRoomsPassedKey, blackRoomsPassed);
@@ -138,10 +151,30 @@ public class Game_Manager : MonoBehaviour
     // New method to load the saved room progress from PlayerPrefs
     private void LoadRoomProgress()
     {
+        roomsPassed = PlayerPrefs.GetInt(RoomsPassedKey, 0); // 🔥 NEW
         redRoomsPassed = PlayerPrefs.GetInt(RedRoomsPassedKey, 0);
         yellowRoomsPassed = PlayerPrefs.GetInt(YellowRoomsPassedKey, 0);
         blackRoomsPassed = PlayerPrefs.GetInt(BlackRoomsPassedKey, 0);
         blackDoorUses = PlayerPrefs.GetInt(BlackDoorUsesKey, 0);
+    }
+    
+    public void ResetAllRoomProgress()
+    {
+        roomsPassed = 0;
+        redRoomsPassed = 0;
+        yellowRoomsPassed = 0;
+        blackRoomsPassed = 0;
+        blackDoorUses = 0;
+        
+        yellowRoomsUsed.Clear();
+        redRoomsUsed.Clear();
+
+        PlayerPrefs.SetInt(RoomsPassedKey, 0);
+        PlayerPrefs.SetInt(RedRoomsPassedKey, 0);
+        PlayerPrefs.SetInt(YellowRoomsPassedKey, 0);
+        PlayerPrefs.SetInt(BlackRoomsPassedKey, 0);
+        PlayerPrefs.SetInt(BlackDoorUsesKey, 0);
+        PlayerPrefs.Save();
     }
 
     public DoorScript.DoorColor GetNextExpectedRoomColor()
