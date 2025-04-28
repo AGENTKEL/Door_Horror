@@ -29,6 +29,11 @@ namespace CharacterScript
         public bool useMouseLook = true;
 
         private bool jumpRequest = false; // <- new: flag for jump button
+        
+        public List<AudioClip> footstepClips; // List of random footstep sounds
+        [SerializeField] private AudioSource audioSource;
+        private float stepTimer = 0f;
+        public float stepInterval = 0.4f; // How often to play footstep sounds
 
         void Start()
         {
@@ -74,6 +79,22 @@ namespace CharacterScript
             }
 
             characterController.Move(moveDirection * Time.deltaTime);
+            
+            bool isMoving = Mathf.Abs(inputVertical) > 0.1f || Mathf.Abs(inputHorizontal) > 0.1f;
+
+            if (characterController.isGrounded && isMoving)
+            {
+                stepTimer += Time.deltaTime;
+                if (stepTimer > stepInterval)
+                {
+                    PlayFootstep();
+                    stepTimer = 0f;
+                }
+            }
+            else
+            {
+                stepTimer = 0f; // Reset timer when not moving or not grounded
+            }
 
             // Mouse look
             if (canMove && useMouseLook)
@@ -83,6 +104,14 @@ namespace CharacterScript
                 playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
                 transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
             }
+        }
+        
+        private void PlayFootstep()
+        {
+            if (footstepClips.Count == 0) return;
+
+            int index = Random.Range(0, footstepClips.Count);
+            audioSource.PlayOneShot(footstepClips[index]);
         }
 
         // --- NEW: public method to call from UI Button ---
